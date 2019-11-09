@@ -1,0 +1,45 @@
+body,
+html {
+    background: #161616;
+
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    color: #f4f4f4;
+    font-family: monospace;
+}
+
+audio,
+canvas,
+video {
+    height: auto;
+    width: 100%;
+
+    margin-top: 1rem;
+}
+
+button {
+    color: #161616;
+}
+
+.bg-primary {
+    background: #8000ff !important;
+}
+
+.contrast {
+    background: #f3e6e8;
+}
+
+.contrast * {
+    color: #161616;
+}
+
+.recording {
+    color: #f00;
+}
+
+.outlined {
+    border: .25rem solid #262626;
+}

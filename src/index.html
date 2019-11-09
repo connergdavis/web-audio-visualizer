@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <meta lang="en-US" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>fred-idea</title>
+</head>
+<body>
+    <div class="bg-primary">
+        <div class="container py-4">
+            <h4 class="m-0" id="vis-name">[ no file selected ]</h4>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 py-4">
+                <h3 class="mb-4 p-4 outlined"><u>First</u>, upload an audio file.</h3>
+                <input id="vis-file" type="file" accept="audio/*" />
+                <canvas id="vis-canvas"></canvas>
+                <audio id="vis-audio" controls></audio>
+            </div>
+            <div class="col-6 py-4 contrast">
+                <h3 class="mb-4 p-4 outlined">Then, record the visualizer.</h3>
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <button id="record">Start Recording</button>
+                        <button id="play" disabled>Play</button>
+                        <button id="download" disabled>Download</button>
+                    </div>
+                    <div id="vis-recording">Not Recording..</div>
+                </div>
+                <video id="recorded" playsinline loop></video>
+            </div>
+        </div>
+    </div>
+    <script src="js/visualize.js"></script>
+    <script src="js/record.js"></script>
+</body>
+</html>
