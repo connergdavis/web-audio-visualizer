@@ -1,9 +1,10 @@
 {
   "name": "js-visualizer",
   "version": "0.5.0",
+  "private": true,
   "description": "An in-browser audio visualizer that accepts audio file uploads. Optionally record the video output to file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels.",
-  "main": "index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/connergdavis/js-visualizer/issues"
   },
-  "homepage": "https://github.com/connergdavis/js-visualizer#readme"
+  "homepage": "https://github.com/connergdavis/js-visualizer#readme",
+  "dependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
 }
