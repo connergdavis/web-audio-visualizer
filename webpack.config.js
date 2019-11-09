@@ -28,6 +28,11 @@ module.exports = {
         ],
         extensions: [ '.js', '.json', '.scss' ]
     },
+    devServer: {
+        contentBase: path.join(__dirname, ''),
+        compress: true,
+        port: 3000
+    },
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
