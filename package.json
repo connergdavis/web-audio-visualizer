@@ -5,6 +5,7 @@
   "description": "An in-browser audio visualizer that accepts audio file uploads. Optionally record the video output to file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels.",
   "scripts": {
     "build": "webpack",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,12 +26,14 @@
     "autoprefixer": "^9.7.1",
     "bootstrap": "^4.3.1",
     "css-loader": "^3.2.0",
+    "express": "^4.17.1",
     "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
+    "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.9.0"
   }
 }

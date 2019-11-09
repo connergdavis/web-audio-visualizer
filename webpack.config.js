@@ -28,13 +28,10 @@ module.exports = {
         ],
         extensions: [ '.js', '.json', '.scss' ]
     },
-    devServer: {
-        contentBase: path.join(__dirname, ''),
-        compress: true,
-        port: 3000
-    },
+    target: 'node',
     output: {
-        filename: 'main.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
 };
