@@ -1,6 +1,6 @@
 # js-visualizer
 
-An in-browser audio visualizer that accepts audio file uploads. Optionally record the video output to file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels.
+A web browser sound visualizer that accepts audio file uploads. Optionally record the visualizer output to video file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels. 
 
 ## Screenshots
 

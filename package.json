@@ -1,8 +1,8 @@
 {
   "name": "js-visualizer",
-  "version": "0.5.0",
+  "version": "0.7.0",
   "private": true,
-  "description": "An in-browser audio visualizer that accepts audio file uploads. Optionally record the video output to file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels.",
+  "description": "A web browser sound visualizer that accepts audio file uploads. Optionally record the visualizer output to video file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels. ",
   "scripts": {
     "build": "webpack",
     "start": "node server.js",
