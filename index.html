@@ -14,15 +14,20 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col py-4">
+            <div class="col col-lg-6 py-4">
                 <h3 class="mb-4 p-4 outlined"><u>First</u>, upload an audio file.</h3>
-                <input id="vis-file" type="file" accept="audio/*" />
+                <input id="vis-file" type="file" accept="audio/*" class="mb-4" />
+                <select id="vis-drawtype">
+                    <option>Bar</option>
+                    <option>Wave</option>
+                    <option>Oscilloscope</option>
+                </select>
                 <canvas id="vis-canvas"></canvas>
                 <audio id="vis-audio" controls></audio>
             </div>
-            <div class="col py-4 contrast">
+            <div class="col col-lg-6 py-4 contrast">
                 <h3 class="mb-4 p-4 outlined">Then, record the visualizer.</h3>
-                <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-between mb-4">
                     <div>
                         <button id="record">Start Recording</button>
                         <button id="play" disabled>Play</button>

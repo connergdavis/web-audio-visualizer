@@ -4,6 +4,82 @@ const canvas    = document.getElementById('vis-canvas');
 const file      = document.getElementById('vis-file');
 const name      = document.getElementById('vis-name');
 
+const drawType = document.getElementById('vis-drawtype');
+
+function freqColor( x )
+{
+    let r, g, b;
+    
+    r = 128;
+    g = 0;
+    b = 255;
+
+    if (x > 100)
+        r = x;
+
+    if (x > 200)
+        g = x * 0.50;
+    else if (x > 150)
+        g = x * 0.05;
+    
+    return `rgb(${r},${g},${b})`;
+}
+
+function drawFreqWave( ctx, freqs, WIDTH, HEIGHT )
+{
+    const max = Math.max.apply(Math, freqs);
+    let y = HEIGHT;
+
+    ctx.lineWidth = 2;
+    for (let x = 0; x < WIDTH; ++x)
+    {
+        ctx.strokeStyle = freqColor(freqs[x]);
+        ctx.beginPath();
+
+        ctx.moveTo(x, y);
+        y = HEIGHT - freqs[x] * (HEIGHT / 256.0);
+        ctx.lineTo(x, y);
+
+        ctx.stroke();
+    }
+}
+
+function drawFreqBars( ctx, freqs, WIDTH, HEIGHT )
+{
+    const max = Math.max.apply(Math, freqs);
+    let barHeight;
+
+    for (let x = 0; x < WIDTH; x += 10)
+    {
+        barHeight = freqs[x] * (HEIGHT / 256.0);
+
+        ctx.fillStyle = freqColor(freqs[x]);
+        ctx.fillRect(x, HEIGHT - barHeight, 10, barHeight);
+    }
+}
+
+function drawTimeOsc( ctx, time, WIDTH, HEIGHT )
+{
+    let risingEdge = 0;
+    let edgeThreshold = 5;
+
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'rgb(128,0,255)';
+    ctx.beginPath();
+
+    while (time[risingEdge++] - 128 > 0 && risingEdge <= WIDTH);
+    if (risingEdge >= WIDTH) risingEdge = 0;
+
+    while (time[risingEdge++] - 128 < edgeThreshold && risingEdge <= WIDTH);
+    if (risingEdge >= WIDTH) risingEdge = 0;
+
+    for (let x = risingEdge; x < time.length && x - risingEdge < WIDTH; ++x)
+    {
+        ctx.lineTo(x - risingEdge, HEIGHT - time[x] * (HEIGHT / 256.0));
+    }
+    ctx.stroke();
+}
+
 function visualize()
 {
     file.addEventListener('change', function ()
@@ -16,81 +92,50 @@ function visualize()
         name.textContent = `Playing => ${files[0].name}`;
 
         const ctx = canvas.getContext('2d');
-        const ctxAudio = new AudioContext();
+        const ctxAudio = new (window.AudioContext || window.webkitAudioContext)();
 
         // use file as audio source
         let src = ctxAudio.createMediaElementSource(audio);
         const analyser = ctxAudio.createAnalyser();
+        analyser.fftSize = 2048;
 
         // sample frequency data using analyser
         src.connect(analyser);
         analyser.connect(ctxAudio.destination);
-        analyser.fftSize = 16384;
-
-        // the actual data, numbers where larger indicates louder, over frequency bands
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-        audio.play();
-        record();
 
         function renderFrame()
         {
-            // always re-size in case client window changes
-            canvas.width = canvas.getBoundingClientRect().width;
-            canvas.height = canvas.getBoundingClientRect().height;
+            const WIDTH = canvas.width = canvas.getBoundingClientRect().width;
+            const HEIGHT = canvas.height = canvas.getBoundingClientRect().height;
 
-            // set width of frequency bar to ratio multiplied by size
-            const barWidth = (canvas.width / dataArray.length) * canvas.height;
-            // keep track of most recent bar x-axis
-            let x = 0;
+            ctx.fillStyle = 'rgb(22, 22, 22)';
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-            // bar height varies by strength of frequency read from buffer
-            let barHeight;
-            analyser.getByteFrequencyData(dataArray);
-
-            ctx.fillStyle = '#1d1d1d';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            let bars = 64;
-            let r, g, b;
-            let max = Math.max.apply(Math, dataArray);
-
-            for (let i = 0; i < bars; ++i)
+            const draw = drawType.options[drawType.selectedIndex].text;
+            if (draw === 'Oscilloscope')
             {
-                barHeight = (dataArray[i] / max) * 125;
+                const time = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteTimeDomainData(time);
 
-                r = 128;
-                g = 0;
-                b = 255;
+                drawTimeOsc(ctx, time, WIDTH, HEIGHT);
+            }
+            else
+            {
+                const freqs = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(freqs);
 
-                if (dataArray[i] > 120)
-                {
-                    const min = dataArray[i] * 0.95;
-                    const max = dataArray[i] * 1.05;
-
-                    r = Math.floor(Math.random() * (max - min) + min);
-
-                    if (dataArray[i] > 220)
-                    {
-                        g = 0.50 * Math.floor(Math.random() * (max - min) + min);
-                    }
-                    else if (dataArray[i] > 180)
-                    {
-                        g = 0.05 * Math.floor(Math.random() * (max - min) + min);
-                    }
-                }
-
-                ctx.fillStyle = `rgb(${r},${g},${b})`;
-                ctx.fillRect(x, (canvas.height - barHeight), barWidth, barHeight);
-
-                x += barWidth + 1;
+                if (draw === 'Bar')
+                    drawFreqBars(ctx, freqs, WIDTH, HEIGHT);
+                else if (draw === 'Wave')
+                    drawFreqWave(ctx, freqs, WIDTH, HEIGHT);
             }
 
-            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
             requestAnimationFrame(renderFrame);
         }
 
-        requestAnimationFrame(renderFrame);
+        renderFrame();
+        audio.play();
+        record();
     });
 }
 
