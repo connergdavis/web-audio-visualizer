@@ -5,6 +5,7 @@ const name      = document.getElementById('name');
 
 const drawType = document.getElementById('draw-type');
 const color = document.getElementById('color');
+const rainbow = document.getElementById('rainbow');
 
 const scaling = 256.0;
 
@@ -29,17 +30,23 @@ function uint8ToRgb( x )
     let rgb = hexToRgb();
 
     // if signal is strong enough, vary color to be lighter
-    if (x > 128)
-    {
-        rgb.r = rgb.r + (255 - x) * 0.75;
-        rgb.g = rgb.g + (255 - x) * 0.75;
-        rgb.b = rgb.b + (255 - x) * 0.75;
-    }
-    else if (x > 96)
+    if (x > 156)
     {
         rgb.r = rgb.r + (255 - x) * 0.50;
         rgb.g = rgb.g + (255 - x) * 0.50;
         rgb.b = rgb.b + (255 - x) * 0.50;
+    }
+    else if (x > 128)
+    {
+        rgb.r = rgb.r + (255 - x) * 0.33;
+        rgb.g = rgb.g + (255 - x) * 0.33;
+        rgb.b = rgb.b + (255 - x) * 0.33;
+    }
+    else if (x > 96)
+    {
+        rgb.r = rgb.r + (255 - x) * 0.25;
+        rgb.g = rgb.g + (255 - x) * 0.25;
+        rgb.b = rgb.b + (255 - x) * 0.25;
     }
 
     return `rgb(${rgb.r},${rgb.g},${rgb.b})`;
@@ -56,11 +63,13 @@ function drawWave( ctx, freqs, max, width, height )
         ctx.strokeStyle = uint8ToRgb(freqs[i]);
         ctx.beginPath();
         ctx.moveTo(x, y);
+
         // update y after each stroke in order to finish line
         y = height - freqs[i] * (height / scaling);
         ctx.lineTo(x + 15, y);
-        ctx.stroke();
         x += 15;
+
+        ctx.stroke();
     }
 }
 
@@ -75,14 +84,17 @@ function drawFilledWave( ctx, freqs, max, width, height )
         ctx.strokeStyle = uint8ToRgb(freqs[i]);
         ctx.beginPath();
         ctx.moveTo(x, y);
+
         // update y after each stroke in order to finish line
         y = height - freqs[i] * (height / scaling);
         ctx.lineTo(x + 15, y);
         ctx.stroke();
+
         ctx.fillStyle = ctx.strokeStyle;
         ctx.lineTo(x + 15, height);
         ctx.lineTo(x, height);
         ctx.fill();
+
         x += 15;
     }
 }
