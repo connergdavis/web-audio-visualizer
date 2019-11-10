@@ -29,7 +29,13 @@ function uint8ToRgb( x )
     let rgb = hexToRgb();
 
     // if signal is strong enough, vary color to be lighter
-    if (x > 96)
+    if (x > 128)
+    {
+        rgb.r = rgb.r + (255 - x) * 0.67;
+        rgb.g = rgb.g + (255 - x) * 0.67;
+        rgb.b = rgb.b + (255 - x) * 0.67;
+    }
+    else if (x > 96)
     {
         rgb.r = rgb.r + (255 - x) * 0.50;
         rgb.g = rgb.g + (255 - x) * 0.50;
@@ -42,21 +48,19 @@ function uint8ToRgb( x )
 function drawWave( ctx, freqs, max, width, height )
 {
     let y = height;
+    let x = 0;
 
     ctx.lineWidth = 2;
-    
-    for (let x = 0; x < width; ++x)
+    for (let i = 0; i < freqs.length; ++i)
     {
-        ctx.strokeStyle = uint8ToRgb(freqs[x]);
-
+        ctx.strokeStyle = uint8ToRgb(freqs[i]);
         ctx.beginPath();
         ctx.moveTo(x, y);
-
         // update y after each stroke in order to finish line
-        y = height - freqs[x] * (height / scaling);
-        ctx.lineTo(x, y);
-
+        y = height - freqs[i] * (height / scaling);
+        ctx.lineTo(x + 15, y);
         ctx.stroke();
+        x += 15;
     }
 }
 
@@ -64,12 +68,12 @@ function drawBars( ctx, freqs, max, width, height )
 {
     let barHeight;
 
-    for (let x = 0; x < width; x += 10)
+    for (let i = 0; i < freqs.length; ++i)
     {
-        barHeight = freqs[x] * (height / 180.0);
+        barHeight = freqs[i] * (height / scaling);
 
-        ctx.fillStyle = uint8ToRgb(freqs[x]);
-        ctx.fillRect(x, height - barHeight, 10, barHeight);
+        ctx.fillStyle = uint8ToRgb(freqs[i]);
+        ctx.fillRect(i * 15, height - barHeight, 15, barHeight);
     }
 }
 
