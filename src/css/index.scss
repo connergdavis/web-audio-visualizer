@@ -2,53 +2,41 @@
 @import '~bootstrap/scss/bootstrap';
 
 body,
-html {
-    background: #161616;
-
+html
+{
+    background: theme-color('dark');
+    color: theme-color('white');
+    font-family: monospace;
     margin: 0;
     padding: 0;
 }
 
-* {
-    color: #f4f4f4;
-    font-family: monospace;
-}
-
 audio,
 canvas,
-video {
-    width: 100%;
+video
+{
+    @extend .mt-2;
 
-    margin-top: 1rem;
+    width: 100%;
 }
 
 canvas,
-video {
-    height: 50vh;
+video
+{
+    min-height: 66vh;
 }
 
 button,
 option,
-select {
+select
+{
     color: #161616;
 }
 
-.bg-primary {
-    background: #8000ff !important;
+label {
+    @extend .m-0;
 }
 
-.contrast {
-    background: #f3e6e8;
-}
-
-.contrast * {
-    color: #161616;
-}
-
-.recording {
-    color: #f00;
-}
-
-.outlined {
-    border: .25rem solid #262626;
+h1 {
+    @extend .mb-4, .p-4, .border;
 }

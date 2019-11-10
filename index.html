@@ -9,31 +9,43 @@
 <body>
     <div class="bg-primary">
         <div class="container py-4">
-            <h4 class="m-0" id="vis-name">[ no file selected ]</h4>
+            <div class="row align-items-center">
+                <div class="col-12 col-md-2">
+                    <h5 id="now-playing" class="m-0 p-3 bg-white text-dark">Paused</h5>
+                </div>
+                <div class="col-12 col-md-10">
+                    <h4 id="name" class="m-0 p-3 bg-dark text-white">[ no file selected ]</h4>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="col col-lg-6 py-4">
-                <h3 class="mb-4 p-4 outlined"><u>First</u>, upload an audio file.</h3>
-                <input id="vis-file" type="file" accept="audio/*" class="mb-4" />
-                <select id="vis-drawtype">
-                    <option>Bar</option>
-                    <option>Wave</option>
-                    <option>Oscilloscope</option>
-                </select>
-                <canvas id="vis-canvas"></canvas>
-                <audio id="vis-audio" controls></audio>
+            <div class="col-12 py-4">
+                <h1 class="border-light"><u>First</u>, upload an audio file.</h1>
+                <input id="file" type="file" accept="audio/*" class="mb-4" />
+                <div class="d-flex align-items-center">
+                    <label for="draw-type">Visualizer Type</label>
+                    <select id="draw-type" name="draw-type" class="mx-4">
+                        <option>Bar</option>
+                        <option>Wave</option>
+                        <option>Oscilloscope</option>
+                    </select>
+                    <label for="color">Main Color</label>
+                    <input id="color" name="color" type="color" value="#8000ff" class="mx-4" />
+                </div>
+                <canvas id="canvas"></canvas>
+                <audio id="audio" controls></audio>
             </div>
-            <div class="col col-lg-6 py-4 contrast">
-                <h3 class="mb-4 p-4 outlined">Then, record the visualizer.</h3>
+            <div class="col-12 py-4 bg-white">
+                <h1 class="border-dark text-dark">Then, record the visualizer.</h1>
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <div>
                         <button id="record">Start Recording</button>
                         <button id="play" disabled>Play</button>
                         <button id="download" disabled>Download</button>
                     </div>
-                    <div id="vis-recording">Not Recording..</div>
+                    <div id="recording" class="text-danger">Not Recording..</div>
                 </div>
                 <video id="recorded" playsinline loop></video>
             </div>
