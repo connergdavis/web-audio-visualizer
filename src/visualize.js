@@ -31,9 +31,9 @@ function uint8ToRgb( x )
     // if signal is strong enough, vary color to be lighter
     if (x > 128)
     {
-        rgb.r = rgb.r + (255 - x) * 0.67;
-        rgb.g = rgb.g + (255 - x) * 0.67;
-        rgb.b = rgb.b + (255 - x) * 0.67;
+        rgb.r = rgb.r + (255 - x) * 0.75;
+        rgb.g = rgb.g + (255 - x) * 0.75;
+        rgb.b = rgb.b + (255 - x) * 0.75;
     }
     else if (x > 96)
     {
@@ -50,6 +50,25 @@ function drawWave( ctx, freqs, max, width, height )
     let y = height;
     let x = 0;
 
+    ctx.lineWidth = 4;
+    for (let i = 0; i < freqs.length; ++i)
+    {
+        ctx.strokeStyle = uint8ToRgb(freqs[i]);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        // update y after each stroke in order to finish line
+        y = height - freqs[i] * (height / scaling);
+        ctx.lineTo(x + 15, y);
+        ctx.stroke();
+        x += 15;
+    }
+}
+
+function drawFilledWave( ctx, freqs, max, width, height )
+{
+    let y = height;
+    let x = 0;
+
     ctx.lineWidth = 2;
     for (let i = 0; i < freqs.length; ++i)
     {
@@ -60,6 +79,10 @@ function drawWave( ctx, freqs, max, width, height )
         y = height - freqs[i] * (height / scaling);
         ctx.lineTo(x + 15, y);
         ctx.stroke();
+        ctx.fillStyle = ctx.strokeStyle;
+        ctx.lineTo(x + 15, height);
+        ctx.lineTo(x, height);
+        ctx.fill();
         x += 15;
     }
 }
@@ -156,6 +179,10 @@ function visualize( )
                 else if (type === 'Wave')
                 {
                     drawWave(ctx, freqs, max, width, height);
+                }
+                else if (type === 'Filled Wave')
+                {
+                    drawFilledWave(ctx, freqs, max, width, height);
                 }
             }
 
