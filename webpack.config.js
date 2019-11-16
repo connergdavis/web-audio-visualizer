@@ -1,37 +1,41 @@
+// see https://webpack.js.org/configuration/
+
 const path = require('path');
+const webpack = require('webpack');
+
+// resolves the absolute path of this folder
+const root = function (append) {
+  return path.resolve(__dirname, append);
+};
 
 module.exports = {
-    entry: './src/index.js',
+
     mode: 'development',
+    entry: root('src/index.tsx'),
+    output: {
+        filename: 'bundle.js',
+        path: root('dist')
+    },
     module: {
-        rules: [{
-            test: /\.(scss)$/,
-            use: [{
-                loader: 'style-loader', // inject CSS to page
-            }, {
-                loader: 'css-loader', // translates CSS into CommonJS modules
-            }, {
-                loader: 'postcss-loader', // Run postcss actions
-                options: {
-                    plugins: function () { // postcss plugins, can be exported to postcss.config.js
-                        return [ require('autoprefixer') ];
-                    }
-                }
-            }, {
-                loader: 'sass-loader', // compiles Sass to CSS
-            }],
-        }],
+        rules: [ {
+            exclude: /node_modules/,
+            test: /\.tsx?$/,
+            use: [ 'ts-loader' ]
+        }, {
+            exclude: /node_modules/,
+            test: /\.s[ac]ss$/i,
+            use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        } ]
     },
     resolve: {
-        modules: [
-            'node_modules', path.resolve(__dirname, 'src')
-        ],
-        extensions: [ '.js', '.json', '.scss' ]
+        extensions: [ '.tsx', '.ts', '.jsx', '.js' ]
     },
-    target: 'node',
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/'
-    },
+    devServer: {
+        contentBase: root('dist'),
+        filename: 'bundle.js',
+        host: '0.0.0.0',
+        hot: true,
+        port: 3000
+    }
+
 };

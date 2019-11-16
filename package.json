@@ -1,39 +1,39 @@
 {
   "name": "js-visualizer",
-  "version": "0.8.0",
-  "private": true,
-  "description": "A web browser sound visualizer that accepts audio file uploads. Optionally record the visualizer output to video file. Visualizer can be configured in numerous ways like color palette, shape, and aggression levels. ",
-  "scripts": {
-    "build": "webpack",
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "0.9.0",
+  "description": "Web-based sound visualizer that accepts live audio input or audio files. Highly customizable. Optionally, record and download a video of the visualizer output for later.",
+  "author": "Conner Davis <connergdavis@gmail.com> (https://linkedin.com/in/connergdavis)",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://github.com/connergdavis/js-visualizer#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/connergdavis/js-visualizer.git"
   },
-  "keywords": [
-    "visualize",
-    "visualizer"
-  ],
-  "author": "Conner Davis <connergdavis@gmail.com> (https://linkedin.com/in/connergdavis)",
-  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/connergdavis/js-visualizer/issues"
   },
-  "homepage": "https://github.com/connergdavis/js-visualizer#readme",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack-dev-server --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "autoprefixer": "^9.7.1",
-    "bootstrap": "^4.3.1",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
     "css-loader": "^3.2.0",
-    "express": "^4.17.1",
     "node-sass": "^4.13.0",
-    "postcss-loader": "^3.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-hot-loader": "^4.12.17",
     "sass-loader": "^8.0.0",
+    "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.9.0"
-  }
+  },
+  "devDependencies": {}
 }

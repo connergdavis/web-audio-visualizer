@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "jsx": "react",
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "outDir": "./dist/",
+        "target": "es2019"
+    }
+}
