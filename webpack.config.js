@@ -28,7 +28,7 @@ module.exports = {
         } ]
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.jsx', '.js' ]
+        extensions: [ '.tsx', '.ts', '.jsx', '.js', '.scss' ]
     },
     devServer: {
         contentBase: root('dist'),
@@ -36,6 +36,7 @@ module.exports = {
         host: '0.0.0.0',
         hot: true,
         port: 3000
-    }
+    },
+    devtool: 'source-map'
 
 };

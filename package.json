@@ -14,17 +14,21 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack-dev-server --mode development --https",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
+    "bootstrap": "^4.3.1",
     "css-loader": "^3.2.0",
+    "g": "^2.0.1",
     "node-sass": "^4.13.0",
+    "npm": "^6.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-hot-loader": "^4.12.17",
+    "react-hot-loader": "^4.12.18",
     "sass-loader": "^8.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
