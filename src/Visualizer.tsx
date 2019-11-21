@@ -34,15 +34,19 @@ export default class Visualizer extends Component<VisualizerProps, VisualizerSta
 
         switch (name) {
             case 'draw':
-                const elem: HTMLSelectElement = it as HTMLSelectElement;
-                let text: string = elem.options[elem.selectedIndex].text;
+                let draw: HTMLSelectElement = it as HTMLSelectElement;
+                let text: string = draw.options[draw.selectedIndex].text;
                 text = text.replace(' ', '-').toLowerCase();
                 this.setState({ draw: text });
+                break;
+
+            case 'color':
+                const color: HTMLInputElement = it as HTMLInputElement;
+                this.setState({ color: color.value.substring(1) });
         }
     }
 
     render() {
-        console.log(this.state);
         return (
             <Fragment>
                 <div className="d-flex align-items-center">
