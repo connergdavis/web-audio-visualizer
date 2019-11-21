@@ -57,11 +57,11 @@ export default class App extends Component<{}, AppState> {
     }
 
     handleAudioSource( e: React.MouseEvent ) {
-        const target: string = e.currentTarget.lastChild.textContent.toLowerCase();
+        const target: string = e.currentTarget.lastChild.textContent;
         const step: AppStep = target.includes('direct') ? AppStep.DirectInput : AppStep.SoundFile;
 
         this.setState({ step: step });
-        if (target === 'direct-input') {
+        if (target === 'Direct Input') {
             this.toggleDirectInput();
         }
     }
@@ -84,6 +84,7 @@ export default class App extends Component<{}, AppState> {
         try {
             const audio: MediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
+            console.log(audio);
             this.setState({
                 directInputStream: audio,
                 nowPlaying: NOW_PLAYING_DIRECT,
@@ -100,10 +101,10 @@ export default class App extends Component<{}, AppState> {
     }
 
     toggleDirectInput() {
-        if (this.state.directInputStream) {
-            this.stopDirectInput();
-        } else {
+        if (this.state.directInputStream === null) {
             this.getDirectInput().then().catch(err => console.log(err));
+        } else {
+            this.stopDirectInput();
         }
     }
 
@@ -134,14 +135,14 @@ export default class App extends Component<{}, AppState> {
                 <div className="center-center">
                     <div
                         className="center-center flex-column bg-white text-dark mx-3 p-4"
-                        onClick={ (e) => this.handleAudioSource(e) }
+                        onClick={(e) => this.handleAudioSource(e)}
                     >
                         <i className="fas fa-microphone mb-4"> </i>
                         <h4>Direct Input</h4>
                     </div>
                     <div
                         className="center-center flex-column bg-white text-dark mx-3 p-4"
-                        onClick={ (e) => this.handleAudioSource(e) }
+                        onClick={(e) => this.handleAudioSource(e)}
                     >
                         <i className="fas fa-file-audio mb-4"> </i>
                         <h4>Sound File</h4>

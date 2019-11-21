@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server --mode development --https",
+    "dev": "npm run build && webpack-dev-server --mode development --https",
     "start": "npm run build && node server.js"
   },
   "dependencies": {
