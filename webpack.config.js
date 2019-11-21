@@ -14,7 +14,7 @@ module.exports = {
     entry: root('src/index.tsx'),
     output: {
         filename: 'bundle.js',
-        path: root('dist')
+        path: root('public/')
     },
     module: {
         rules: [ {
@@ -30,13 +30,13 @@ module.exports = {
     resolve: {
         extensions: [ '.tsx', '.ts', '.jsx', '.js', '.scss' ]
     },
-    devServer: {
-        contentBase: root('dist'),
+    /*devServer: {
+        contentBase: root('public/'),
         filename: 'bundle.js',
         host: '0.0.0.0',
         hot: true,
         port: 3000
-    },
+    },*/
     devtool: 'source-map'
 
 };

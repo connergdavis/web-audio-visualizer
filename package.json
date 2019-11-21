@@ -15,7 +15,7 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server --mode development --https",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build && node server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
@@ -23,6 +23,7 @@
     "@types/react-dom": "^16.9.4",
     "bootstrap": "^4.3.1",
     "css-loader": "^3.2.0",
+    "express": "^4.17.1",
     "g": "^2.0.1",
     "node-sass": "^4.13.0",
     "npm": "^6.13.1",
