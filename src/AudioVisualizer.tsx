@@ -24,6 +24,7 @@ export default class AudioVisualizer extends Component<AudioVisualizerProps, Aud
     private ctx: CanvasRenderingContext2D;
     private height: number;
     private width: number;
+    private color: Rgb;
 
     readonly canvas: React.RefObject<HTMLCanvasElement>;
     readonly scaling: number = 256.0;
@@ -113,6 +114,10 @@ export default class AudioVisualizer extends Component<AudioVisualizerProps, Aud
         this.height = canvas.height = canvas.getBoundingClientRect().height;
         this.width = canvas.width = canvas.getBoundingClientRect().width;
 
+        if (this.props.rainbow) {
+            this.color = Rgb.random(Rgb.fromHex(this.props.color));
+        }
+
         switch (this.props.draw) {
             case 'bars':
                 this.drawBars();
@@ -132,7 +137,7 @@ export default class AudioVisualizer extends Component<AudioVisualizerProps, Aud
             throw new Error('AudioVisualizer#uint8ToRgb(): Illegal argument');
         }
 
-        let rgb: Rgb = Rgb.fromHex(this.props.color);
+        let rgb: Rgb = this.props.rainbow ? this.color : Rgb.fromHex(this.props.color);
 
         if (val > 156) {
             rgb.shade(val, 0.50);

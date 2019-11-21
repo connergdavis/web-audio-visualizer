@@ -43,6 +43,10 @@ export default class Visualizer extends Component<VisualizerProps, VisualizerSta
             case 'color':
                 const color: HTMLInputElement = it as HTMLInputElement;
                 this.setState({ color: color.value.substring(1) });
+                break;
+
+            case 'rainbow':
+                this.setState({ rainbow: !this.state.rainbow });
         }
     }
 
