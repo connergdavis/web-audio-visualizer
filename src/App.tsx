@@ -69,6 +69,7 @@ export default class App extends Component<{}, AppState> {
     handleSoundFile( e: React.ChangeEvent<HTMLInputElement> ) {
         this.setState({
             soundFileStream: URL.createObjectURL(e.target.files[0]),
+            nowPlaying: e.target.files[0].name,
             step: AppStep.Visualizer
         });
     }

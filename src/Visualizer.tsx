@@ -1,5 +1,6 @@
-import React, { ChangeEvent, Component, Fragment } from 'react';
-import AudioAnalyser from './AudioAnalyser';
+import React, { ChangeEvent, Component, Fragment } from 'react'
+
+import AudioAnalyser from './AudioAnalyser'
 
 type VisualizerProps = {
 
