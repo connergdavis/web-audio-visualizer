@@ -114,9 +114,7 @@ export default class App extends Component<{}, AppState> {
                         <div className="col-12 col-md-2">
                             <h5 className="m-0 p-4 bg-white text-dark">
                                 <i className={ `fas fa-${ this.isNowPlaying() ? 'play' : 'pause' } mr-md-4` }> </i>
-                                {
-                                    this.isNowPlaying() ? 'Playing' : 'Paused'
-                                }
+                                { this.isNowPlaying() ? 'Playing' : 'Paused' }
                             </h5>
                         </div>
                         <div className="col-12 col-md-10">
@@ -133,13 +131,17 @@ export default class App extends Component<{}, AppState> {
             <Fragment>
                 <h1>First, select an audio source.</h1>
                 <div className="center-center">
-                    <div onClick={ (e) => this.handleAudioSource(e) }
-                         className="center-center flex-column bg-white text-dark mx-3 p-4">
+                    <div
+                        className="center-center flex-column bg-white text-dark mx-3 p-4"
+                        onClick={ (e) => this.handleAudioSource(e) }
+                    >
                         <i className="fas fa-microphone mb-4"> </i>
                         <h4>Direct Input</h4>
                     </div>
-                    <div onClick={ (e) => this.handleAudioSource(e) }
-                         className="center-center flex-column bg-white text-dark mx-3 p-4">
+                    <div
+                        className="center-center flex-column bg-white text-dark mx-3 p-4"
+                        onClick={ (e) => this.handleAudioSource(e) }
+                    >
                         <i className="fas fa-file-audio mb-4"> </i>
                         <h4>Sound File</h4>
                     </div>
@@ -151,8 +153,10 @@ export default class App extends Component<{}, AppState> {
     renderDirectInput() {
         return (
             <Fragment>
-                <h6 onClick={ (e) => this.handleSwitch(e) }
-                    className="d-flex align-items-center p-3 border border-danger text-danger">
+                <h6
+                    className="d-flex align-items-center p-3 border border-danger text-danger"
+                    onClick={ (e) => this.handleSwitch(e) }
+                >
                     <i className="fas fa-undo mr-3"> </i>
                     Actually, I want to switch to sound file.
                 </h6>
@@ -164,8 +168,10 @@ export default class App extends Component<{}, AppState> {
     renderSoundFile() {
         return (
             <Fragment>
-                <h6 onClick={ (e) => this.handleSwitch(e) }
-                    className="d-flex align-items-center p-3 border border-danger text-danger">
+                <h6
+                    className="d-flex align-items-center p-3 border border-danger text-danger"
+                    onClick={ (e) => this.handleSwitch(e) }
+                >
                     <i className="fas fa-undo mr-3"> </i>
                     Actually, I want to switch to direct input.
                 </h6>
@@ -189,18 +195,10 @@ export default class App extends Component<{}, AppState> {
         return (
             <div className="container">
                 <div className="py-4">
-                    {
-                        this.isStep(AppStep.AudioSource) && this.renderAudioSource()
-                    }
-                    {
-                        this.isStep(AppStep.DirectInput) && this.renderDirectInput()
-                    }
-                    {
-                        this.isStep(AppStep.SoundFile) && this.renderSoundFile()
-                    }
-                    {
-                        this.isStep(AppStep.Visualizer) && this.renderVisualizer()
-                    }
+                    { this.isStep(AppStep.AudioSource) && this.renderAudioSource() }
+                    { this.isStep(AppStep.DirectInput) && this.renderDirectInput() }
+                    { this.isStep(AppStep.SoundFile) && this.renderSoundFile() }
+                    { this.isStep(AppStep.Visualizer) && this.renderVisualizer() }
                 </div>
             </div>
         )
@@ -223,7 +221,7 @@ export default class App extends Component<{}, AppState> {
         return this.state.nowPlaying !== NOW_PLAYING_NONE;
     }
 
-    isStep( it: AppStep): boolean {
+    isStep( it: AppStep ): boolean {
         return this.state.step === it;
     }
 

@@ -1,16 +1,20 @@
-import React, { Component, Fragment } from 'react';
-import AudioVisualizer from './AudioVisualizer';
+import React, { Component, Fragment } from 'react'
+
+import AudioVisualizer from './AudioVisualizer'
 
 type AudioAnalyserProps = {
 
     source: string | MediaStream
+    color: string
+    draw: string
+    rainbow: boolean
 
 }
 
 type AudioAnalyserState = {
 
-    analyser: AnalyserNode,
-    ctx: AudioContext,
+    analyser: AnalyserNode
+    ctx: AudioContext
     data: Uint8Array
 
 };
@@ -40,18 +44,22 @@ export default class AudioAnalyser extends Component<AudioAnalyserProps, AudioAn
     render() {
         return (
             <Fragment>
-                { this.state.data &&
-                    <AudioVisualizer data={ this.state.data } />
-                }
-                {
-                    !(this.props.source instanceof MediaStream) &&
+                {this.state.data && (
+                    <AudioVisualizer
+                        data={this.state.data}
+                        color={this.props.color}
+                        draw={this.props.draw}
+                        rainbow={this.props.rainbow}
+                    />
+                )}
+                {!(this.props.source instanceof MediaStream) && (
                     <audio ref={ this.audio } src={ this.props.source } controls autoPlay />
-                }
+                )}
             </Fragment>
         )
     }
 
-    componentDidMount(): void {
+    componentDidMount() {
         const ctx: AudioContext = new window.AudioContext();
 
         let src;
